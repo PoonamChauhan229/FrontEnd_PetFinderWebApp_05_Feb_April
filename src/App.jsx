@@ -1,14 +1,24 @@
+import { Provider } from 'react-redux'
 import './App.css'
 import Login from './Components/Login'
 import Register from './Components/Register'
+import { Routes, Route } from "react-router-dom"
+import appStore from './utilis/appStore'
+import Browse from './Components/Browse'
+import Header from './Components/Header'
 
 function App() {
 
   return (
-   <>
-    <Login/>
-    <Register/>
-   </>
+   <Provider store={appStore}>
+    <Header/>
+   <Routes>
+     <Route exact path="/" element={<Login/>}/>
+        <Route exact path="/register" element={<Register/>}/>
+        <Route exact path="/browse" element={<Browse/>}/>
+        </Routes>
+
+   </Provider>
   )
 }
 
