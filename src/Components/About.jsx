@@ -1,8 +1,9 @@
+import aboutImage from '../assets/about.jpg'
+import Hero from './Hero'
 const About = () => {
   return (
    <>
    {/* About Page */}
-
    <div className="container-fluid pb-5">
         <div className="container">
             <div className="row gx-5">

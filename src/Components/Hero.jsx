@@ -1,29 +1,9 @@
-import aboutImage from '../assets/about.jpg'
+import React from 'react'
 
-const NavBar = () => {
+const Hero = () => {
   return (
     <>
-     <nav className="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
-         <div className="navbar-nav ms-auto py-0">
-            <h1 className="nav-item nav-link active fs-5"><i className="bi bi-shop fs-2 text-primary me-2"></i>PET SHOP</h1>
-        </div>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarCollapse">
-            <div className="navbar-nav ms-auto py-0 me-3">
-                <a href="index.html" className="nav-item nav-link active">Home</a>
-                <a href="about.html" className="nav-item nav-link">About</a>
-                <a href="about.html" className="nav-item nav-link">Contact</a>
-                <a href="service.html" className="nav-item nav-link">Login</a>
-                <a href="product.html" className="nav-item nav-link">SignUp</a>
-            </div>
-        </div>
-    </nav>
-
-    {/*  */}
-
-    {/* <!-- Hero Start --> */}
+         {/* <!-- Hero Start --> */}
     <div className="container-fluid bg-primary py-5 mb-5 hero-header">
         <div className="container py-5">
             <div className="row justify-content-start">
@@ -75,4 +55,4 @@ const NavBar = () => {
   )
 }
 
-export default NavBar
+export default Hero

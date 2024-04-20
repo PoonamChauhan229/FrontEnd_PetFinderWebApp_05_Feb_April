@@ -1,10 +1,12 @@
 import React from 'react'
-import Header from './Header'
+import Breed from './Breed'
 
 const Browse = () => {
   return (
-    <div className='d-flex flex-wrap'>
-      
+    <div style={{marginTop:"150px"}}>
+    <h1>Browse</h1>
+    <Breed/>
+    
     </div>
   )
 }

@@ -1,27 +1,33 @@
 import { Provider } from 'react-redux'
 import './App.css'
-import Login from './Components/Login'
+// import Login from './Components/Login'
 import Register from './Components/Register'
 import { Routes, Route } from "react-router-dom"
 import appStore from './utilis/appStore'
 import Browse from './Components/Browse'
-import Header from './Components/Header'
+// import Header from './Components/Header'
 import Home from './Components/Home'
-import NavBar from './Components/NavBar'
-
+import About from './Components/About'
+import Services from './Components/Services'
+import Footer from './Components/Footer'
+import Login from './Components/Login'
+import Header from './Components/Header'
+// import { useState } from 'react'
 
 function App() {
-
   return (
    <Provider store={appStore}>
-    <NavBar/>
-    <Header/>
-   <Routes>
-     <Route exact path="/" element={<Home/>}/>
+    <Header/>    
+    <Routes>      
+       <Route exact path="/" element={<Home/>}/>
+       <Route exact path="/about" element={<About/>}/>
+       <Route exact path="/services" element={<Services/>}/>
         <Route exact path="/register" element={<Register/>}/>
-        <Route exact path="/browse" element={<Browse/>}/>
-        </Routes>
-
+        <Route exact path="/browse" element={<Browse/>}/>        
+       <Route exact path="/login" element={<Login/>}/>
+    </Routes>
+    
+    <Footer/>
    </Provider>
   )
 }

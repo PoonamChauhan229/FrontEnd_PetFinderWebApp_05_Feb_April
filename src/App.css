@@ -280,7 +280,7 @@
 }
 
 .bg-offer {
-    background: url(../img/offer.jpg) top right no-repeat;
+    background: url(./assets/offer.jpg) top right no-repeat;
     background-size: cover;
 }
 
@@ -385,7 +385,7 @@
 }
 
 .bg-testimonial {
-    background: url(../img/testimonial.jpg) top left no-repeat;
+    background: url(./assets/testimonial.jpg) top left no-repeat;
     background-size: cover;
 }
 
