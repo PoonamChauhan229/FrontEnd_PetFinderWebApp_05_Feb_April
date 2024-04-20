@@ -44,7 +44,6 @@ const Header = () => {
 
   return (
     <div>
-        <h1>Heelo</h1>
       {
         user &&
         <button onClick={handleSignOut} className="font-bold text-white ">
