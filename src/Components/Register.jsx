@@ -1,13 +1,11 @@
-import React, { useRef } from 'react'
-import loginPhoto from '../assets/loginPhoto.jpg'
+import { useRef } from 'react'
 import {
     createUserWithEmailAndPassword,
     updateProfile,
 } from "firebase/auth";
-import { auth } from "../utilis/firebase";
+import { auth} from '../utilis/firebase';
 import { useDispatch } from "react-redux";
 import { addUser } from '../utilis/userSlice';
-import Header from './Header';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -18,24 +16,29 @@ const Register = () => {
 
     const firstName = useRef(null);
     const lastName = useRef(null)
-    const name = `${firstName} ${lastName}`
+    // const name = 
     const email = useRef(null);
     const password = useRef(null);
+   
 
     const handleButtonClick = () => {
+       
         createUserWithEmailAndPassword(
             auth,
             email.current.value,
             password.current.value
         )
             .then((userCredential) => {
+                console.log("Name",firstName.current.value +" "+lastName.current.value)
                 const user = userCredential.user;
+                console.log("Signup user",user)
                 updateProfile(user, {
-                    displayName: name.current.value,
+                    displayName: firstName.current.value +" "+lastName.current.value,
                     // photoURL: USER_AVATAR,
                 })
                     .then(() => {
-                        const { uid, email, displayName } = auth.currentUser;
+                        const { uid, email, displayName } = user;
+                        console.log("DN",displayName)
                         dispatch(
                             addUser({
                                 uid: uid,

@@ -18,7 +18,7 @@ const Header = () => {
     const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-
+  console.log(user)
     const handleSignOut = () => {
         signOut(auth)
           .then(() => {})
@@ -37,6 +37,7 @@ const Header = () => {
                 email: email,
                 displayName: displayName,
                 photoURL: photoURL,
+                selectedBreed:null,
               })
             );
             navigate("/browse");
