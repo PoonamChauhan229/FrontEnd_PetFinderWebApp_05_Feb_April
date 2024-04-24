@@ -10,7 +10,7 @@ import Hero from './Hero'
 
 const Header = () => {
   const location = useLocation();
-  const excludedPaths = ['/login', '/register','/browse']; // Paths where NavBar should be excluded
+  const excludedPaths = ['/login', '/register','/browse','/allbreed']; // Paths where NavBar should be excluded
 
   // Check if current path is in the excludedPaths array
   const shouldRenderNavBar = !excludedPaths.includes(location.pathname);

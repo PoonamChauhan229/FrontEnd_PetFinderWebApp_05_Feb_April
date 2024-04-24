@@ -13,7 +13,7 @@ import Footer from './Components/Footer'
 import Login from './Components/Login'
 import Header from './Components/Header'
 // import { useState } from 'react'
-
+import AllBreeds from './Components/AllBreeds'
 function App() {
   return (
    <Provider store={appStore}>
@@ -25,6 +25,7 @@ function App() {
         <Route exact path="/register" element={<Register/>}/>
         <Route exact path="/browse" element={<Browse/>}/>        
        <Route exact path="/login" element={<Login/>}/>
+       <Route exact path="/allbreed" element={<AllBreeds/>}/>
     </Routes>
     
     <Footer/>

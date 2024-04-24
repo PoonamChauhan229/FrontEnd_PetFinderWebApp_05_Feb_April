@@ -35,7 +35,7 @@ const Breed = () => {
 
   const handleSkip = () => {
      console.log('Skipped for now');
-     navigate('/about')
+     navigate('/allbreed')
      
      };
 

@@ -6,7 +6,6 @@ const Browse = () => {
   return (
     <div style={{marginTop:"150px"}}>
     <Breed/>    
-    <BreedCard/>
     </div>
   )
 }
