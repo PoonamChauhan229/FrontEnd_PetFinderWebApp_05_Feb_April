@@ -68,9 +68,9 @@ const Header = () => {
                 <Link to="/services" className="nav-item nav-link">Services</Link>
                 <Link to="/contact" className="nav-item nav-link">Contact Us</Link>
                 {
-                  user ?  <div onClick={handleSignOut} className="nav-item nav-link">
-                  Sign Out
-                </div>:
+                  user ? 
+                  <div onClick={handleSignOut} className="nav-item nav-link"> Sign Out</div>
+                                       :            
                   <>
                   <Link to="/login" className="nav-item nav-link">Login</Link>
                   <Link to="/register" className="nav-item nav-link">SignUp</Link>

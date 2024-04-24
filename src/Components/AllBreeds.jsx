@@ -41,11 +41,22 @@ const AllBreeds = () => {
   };
 
   return (
-    <div className="container-fluid py-5">
-      <div className="container">
-        <div className="border-start border-5 border-primary ps-5 mb-5" style={{ maxWidth: "600px" }}>
-          <h6 className="text-primary text-uppercase">Available Breeds for Adoption</h6>
-        </div>
+    <div className="container-fluid pt-5" style={{marginTop:"4%"}}>
+        <div className="container">
+            <div className="border-start border-5 border-primary ps-3 mb-5 d-flex justify-content-between" style={{maxWidth: "100%"}}>
+                
+                <h5 className="text-uppercase py-3">Breeds Available for Adoption</h5>
+                <nav className="navbar navbar-light bg-light">
+                    <div className="container-fluid">
+                      <div className="d-flex">
+                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button className="btn btn-outline-success py-0 px-3"
+                        style={{fontSize:"80%"}}
+                        type="submit">Search</button>
+                      </div>
+                    </div>
+</nav>
+            </div>
         <div className="row g-5">
           {breeds.map(breed => (
             <BreedCard
