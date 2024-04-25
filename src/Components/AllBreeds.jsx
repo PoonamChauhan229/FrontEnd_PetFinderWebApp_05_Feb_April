@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BreedCard from './BreedCard';
 import AddBreedModal from './AddBreedModal';
+import { useSelector } from 'react-redux';
 
 const AllBreeds = () => {
   const [breeds, setBreeds] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredBreeds, setFilteredBreeds] = useState([]);
   const [searchClicked, setSearchClicked] = useState(false);
+  const userFinal = useSelector((state) => state.user);
+  // console.log("Allbreeds",userFinal.uid)
+  const uid=userFinal?.uid
   
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -32,7 +36,7 @@ const AllBreeds = () => {
       setSearchClicked(false);
   
       // Make API call to update Searched_Breed_Outof_stock with the current searchTerm
-      const apiUrl = 'https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata';
+      const apiUrl = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`;
       const payload = {
         Searched_Breed_Outof_stock: searchTerm
       };
@@ -47,15 +51,18 @@ const AllBreeds = () => {
     }
   
     try {
-      const response = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${searchTerm}&api_key=live_uwbqnq8DTKSqVi3Bpy7FUSQH1HKIIb9y31d41Izmt62Y23A0koBbYx2e6PMMbbxf`);
+      // const response = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${searchTerm}&api_key=live_uwbqnq8DTKSqVi3Bpy7FUSQH1HKIIb9y31d41Izmt62Y23A0koBbYx2e6PMMbbxf`);
+      const response = await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/dogs?name=${searchTerm}`)
       setFilteredBreeds(response.data);
       setSearchClicked(true);
   
       if (response.data.length === 0) {
         // Fetch current Searched_Breed_Outof_stock from mock API
-        const apiUrl = 'https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata';
+        const apiUrl = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`;
         try {
           const userDataResponse = await axios.get(apiUrl);
+          console.log("ResponseData",userDataResponse)
+          console.log(`${apiUrl}/${userDataResponse?.data[0]?.id}`)
           const currentSearches = userDataResponse.data[0]?.Searched_Breed_Outof_stock || [];
   
           // Check if the current searchTerm is not already in the Searched_Breed_Outof_stock
@@ -67,7 +74,7 @@ const AllBreeds = () => {
               Searched_Breed_Outof_stock: updatedSearches
             };
   
-            await axios.put(`${apiUrl}/${userDataResponse.data[0]?.id}`, updatePayload);
+            await axios.put(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata/${userDataResponse?.data[0]?.id}`, updatePayload);
           }
         } catch (error) {
           console.error('Error fetching or updating Searched_Breed_Outof_stock:', error);
@@ -112,6 +119,16 @@ const AllBreeds = () => {
     }
   };
 
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get('https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      return [];
+    }
+  };
+  
   const addNewBreed = (newBreed) => {
     // Update breeds list with the new breed
     setBreeds((prevBreeds) => [...prevBreeds, newBreed]);
