@@ -29,7 +29,6 @@ const AllBreeds = () => {
     }
   };
 
-  
   const handleSearch = async () => {
     if (searchTerm.trim() === '') {
       setFilteredBreeds([]);
@@ -51,8 +50,8 @@ const AllBreeds = () => {
     }
   
     try {
-      // const response = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${searchTerm}&api_key=live_uwbqnq8DTKSqVi3Bpy7FUSQH1HKIIb9y31d41Izmt62Y23A0koBbYx2e6PMMbbxf`);
-      const response = await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/dogs?name=${searchTerm}`)
+      const response = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${searchTerm}&api_key=live_uwbqnq8DTKSqVi3Bpy7FUSQH1HKIIb9y31d41Izmt62Y23A0koBbYx2e6PMMbbxf`);
+      // const response = await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/dogs?name=${searchTerm}`)
       setFilteredBreeds(response.data);
       setSearchClicked(true);
   
@@ -86,6 +85,7 @@ const AllBreeds = () => {
       setSearchClicked(false);
     }
   };
+  
   
 
   const handleInputChange = (e) => {

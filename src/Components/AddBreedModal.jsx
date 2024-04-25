@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import emailjs from 'emailjs-com';
 
 const AddBreedModal = ({ onClose, addNewBreed }) => {
   const initialBreedState = {
@@ -21,11 +22,36 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
     }));
   };
 
+  // Email.js
+  const sendEmail = async (recipientEmail, breedName) => {
+    const templateParams = {
+      to_email: recipientEmail,
+      breed_name: breedName,
+    };
+
+    try {
+      await emailjs.send('service_m5ltwz9', 'template_zfh733s', templateParams, 'wa3SGpo3GO9zHG9rn');
+      console.log('Email sent successfully to:', recipientEmail,breedName);
+    } catch (error) {
+      console.error('Email sending failed:', error);
+    }
+  };
+
   const handleSave = async () => {
     try {
       const response = await axios.post('https://6624dd2604457d4aaf9d281d.mockapi.io/dogs', newBreed);
       console.log('Added New Breed:', response.data);
       addNewBreed(response.data); // Update breed list in parent component
+
+       // Check if the new breed matches any user's searched breed and send email notification
+       const apiUrl = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata`;
+       const usersResponse = await axios.get(apiUrl);
+ 
+       usersResponse.data.forEach((user) => {
+         if (user.Searched_Breed_Outof_stock.includes(newBreed.name)) {
+           sendEmail(user.email, newBreed.name);
+         }
+       });
       onClose(); // Close the modal after successful add
     } catch (error) {
       console.error('Error adding new breed:', error);
