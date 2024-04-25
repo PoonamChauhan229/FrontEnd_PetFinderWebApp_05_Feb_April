@@ -514,3 +514,9 @@
       "origin": "abc1245"
     }
   ]
+
+
+  https://api.thedogapi.com/v1/breeds?limit=10&page=0&api_key=live_uwbqnq8DTKSqVi3Bpy7FUSQH1HKIIb9y31d41Izmt62Y23A0koBbYx2e6PMMbbxf
+
+  Search
+  https://api.thedogapi.com/v1/breeds/search?q=Afghan&api_key=live_uwbqnq8DTKSqVi3Bpy7FUSQH1HKIIb9y31d41Izmt62Y23A0koBbYx2e6PMMbbxf
