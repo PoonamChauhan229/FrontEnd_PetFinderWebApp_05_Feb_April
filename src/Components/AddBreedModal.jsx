@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import emailjs from 'emailjs-com';
-
 const AddBreedModal = ({ onClose, addNewBreed }) => {
   const initialBreedState = {
     name: '',
@@ -22,22 +20,7 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
     }));
   };
 
-  // Email.js
-  const sendEmail = async (recipientEmail, breedName) => {
-    const templateParams = {
-      to_email: recipientEmail,
-      breed_name: breedName,
-    };
-
-    try {
-      await emailjs.send('service_m5ltwz9', 'template_zfh733s', templateParams, 'wa3SGpo3GO9zHG9rn');
-      console.log('Email sent successfully to:', recipientEmail,breedName);
-    } catch (error) {
-      console.error('Email sending failed:', error);
-    }
-  };
-
-  const handleSave = async () => {
+   const handleSave = async () => {
     try {
       const response = await axios.post('https://6624dd2604457d4aaf9d281d.mockapi.io/dogs', newBreed);
       console.log('Added New Breed:', response.data);
@@ -47,12 +30,65 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
        const apiUrl = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata`;
        const usersResponse = await axios.get(apiUrl);
  
-       usersResponse.data.forEach((user) => {
-         if (user.Searched_Breed_Outof_stock.includes(newBreed.name)) {
-           sendEmail(user.email, newBreed.name);
-         }
-       });
+       usersResponse.data.forEach(async (user) => {
+        if (user.Searched_Breed_Outof_stock && user.Searched_Breed_Outof_stock.includes(newBreed.name)) {
+          const emailApiUrl='http://localhost:8000/send-email-stock-available'
+          const emailPayload = {
+            email: user.email,
+            subject: `Breed ${newBreed.name} Available ... Please Visit Website !!!`,
+            // text: `Hello ${user.displayName}, the breed ${newBreed.name} you searched for is now available!`,
+            html: `
+    <html>
+      <head>
+        <style>
+          /* Define your styles here */
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+          }
+          .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          }
+          h1 {
+            color: #007bff;
+          }
+          p {
+            line-height: 1.6;
+          }
+          .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Breed ${newBreed.name} Now Available!</h1>
+          <p>Hello ${user.displayName},</p>
+          <p>The breed ${newBreed.name} you searched for is now available. Visit our website to learn more and make a purchase!</p>
+          <a href="https://petfinder-solvex-9040c.web.app/" class="button">Visit Website</a>
+        </div>
+      </body>
+    </html>
+  `,
+};
+          await axios.post(emailApiUrl, emailPayload);
+        }
+      });
+
       onClose(); // Close the modal after successful add
+
     } catch (error) {
       console.error('Error adding new breed:', error);
     }
