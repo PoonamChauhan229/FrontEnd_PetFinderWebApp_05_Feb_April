@@ -55,8 +55,8 @@ const Header = () => {
     <>
     
     <nav className="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 fixed-top">
-         <div className="navbar-nav ms-auto py-0">
-            <h1 className="nav-item nav-link active fs-5"><i className="bi bi-shop fs-2 text-primary me-2"></i>PET SHOP</h1>
+         <div className="navbar-brand ms-lg-5 p-0">
+            <h1 className="m-0 text-uppercase text-dark fs-4"><i className="bi bi-shop fs-2 text-primary me-2"></i><b>PET SHOP</b></h1>
         </div>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span className="navbar-toggler-icon"></span>
@@ -66,10 +66,15 @@ const Header = () => {
                 <Link to="/" className="nav-item nav-link active">Home</Link>
                 <Link to="/about" className="nav-item nav-link">About</Link>                
                 <Link to="/services" className="nav-item nav-link">Services</Link>
-                <Link to="/contact" className="nav-item nav-link">Contact Us</Link>
                 {
-                  user ? 
-                  <div onClick={handleSignOut} className="nav-item nav-link"> Sign Out</div>
+                  user ?                  
+                  <>
+                  <div className='d-flex'>
+                  <div onClick={handleSignOut} className="nav-item nav-link">{user.displayName.split(" ")[0]}</div>
+                  <div className='nav-item nav-link'><h5 className="bi bi-power text-danger"></h5></div>
+                  </div>
+                  </>
+                
                                        :            
                   <>
                   <Link to="/login" className="nav-item nav-link">Login</Link>

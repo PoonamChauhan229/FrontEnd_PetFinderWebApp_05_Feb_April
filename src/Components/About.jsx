@@ -4,7 +4,7 @@ const About = () => {
   return (
    <>
    {/* About Page */}
-   <div className="container-fluid pb-5">
+   <div className="container-fluid pb-4">
         <div className="container">
             <div className="row gx-5">
                 <div className="col-lg-5 mb-5 mb-lg-0" style={{minHeight: "500px"}}>

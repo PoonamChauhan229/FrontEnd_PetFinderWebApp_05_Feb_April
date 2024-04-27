@@ -15,12 +15,12 @@ const BreedCard = ({  image, origin, weight, name, bred_for, temperament, breed,
   };
 
   return (
-    <div className="col-lg-6">
-      <div className="blog-item">
+    <div className="col-lg-6 rounded-start">
+      <div className="blog-item ">
         <div className="row g-0 bg-light overflow-hidden">
         <div className="col-12 col-sm-5" style={{ height: "150px", width: "220px" }}>
           <img
-            className="img-fluid"
+            className="img-fluid rounded-start"
             src={image?.url}
             style={{objectFit: "cover"}}
             alt={name}

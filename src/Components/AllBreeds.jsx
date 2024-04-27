@@ -3,6 +3,7 @@ import axios from 'axios';
 import BreedCard from './BreedCard';
 import AddBreedModal from './AddBreedModal';
 import { useSelector } from 'react-redux';
+import BreedSubscriptionModal from './BreedSubscriptionModal';
 
 const AllBreeds = () => {
   const [breeds, setBreeds] = useState([]);
@@ -14,6 +15,7 @@ const AllBreeds = () => {
   const uid=userFinal?.uid
   
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showSubscriptionModal, setshowSubscriptionModal] = useState(false);
 
   useEffect(() => {
     fetchBreeds();
@@ -136,30 +138,41 @@ const AllBreeds = () => {
     setShowAddModal(false);
   };
   return (
-    <div className="container-fluid pt-5" style={{ marginTop: '4%' }}>
+    <div className="container-fluid pt-5">
       <div className="container">
-        <div className="border-start border-5 border-primary ps-3 mb-5 d-flex justify-content-between" style={{ maxWidth: '100%' }}>
-          <h5 className="text-uppercase py-3">Breeds Available for Adoption</h5>
-          <button className="btn btn-primary" onClick={() => setShowAddModal(true)}>Add Pet</button>
-          <div className="d-flex">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              value={searchTerm}
-              onChange={handleInputChange}
-            />
-            <button
-              className="btn btn-outline-success py-0 px-3"
-              style={{ fontSize: '80%' }}
-              type="button"
-              onClick={handleSearch}
-            >
-              Search
-            </button>
-          </div>
-        </div>
+        <div className='d-flex' >
+            <div className="border-start border-5 border-primary ps-3" style={{ width: '53%',height:"30%" }}>        
+              <h5 className="text-uppercase py-3">Breeds Available for Adoption</h5>
+            </div>
+       
+            <div className='d-flex'>
+              <button className="btn text-primary btn-sm"  style={{ width:'23%',paddingBottom:"10%",marginTop:"4%" }} onClick={() => setShowAddModal(true)}>Add Pet<i className="bi bi-plus-circle-fill text-primary ps-1"></i></button>
+              <button className="btn text-primary btn-sm me-2" style={{ width:'24%',paddingBottom:"10%",marginTop:"4%"}} onClick={() => setshowSubscriptionModal(true)}>Subscribe <i className="bi bi-arrow-up-right-circle-fill text-primary"></i></button>
+              
+              <div className="d-flex">
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  value={searchTerm}
+                  onChange={handleInputChange}
+                  style={{height:"35px", marginTop:"6.8%"}}
+                />
+                <button
+                  className="btn btn-outline-success py-0 px-3 text-primary"
+                  style={{ fontSize: '80%',height:"35px", marginTop:"6.8%" }}
+                  type="button"
+                  onClick={handleSearch}
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+
+            </div>
+       
+        {/* Breed List */}
         <div className="row g-5">
           {(searchClicked ? filteredBreeds : breeds).map((breed) => (
             <BreedCard
@@ -178,6 +191,13 @@ const AllBreeds = () => {
         <AddBreedModal
           onClose={() => setShowAddModal(false)}
           addNewBreed={addNewBreed}
+        />
+      )}
+
+{/* <BreedSubscriptionModal/> */}
+{showSubscriptionModal && (
+        <BreedSubscriptionModal
+          onClose={() => setshowSubscriptionModal(false)}
         />
       )}
     </div>

@@ -85,6 +85,15 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
 };
           await axios.post(emailApiUrl, emailPayload);
         }
+        if (user.selectedBreed && user.selectedBreed.includes(newBreed.name)) {
+          const emailApiUrl_Subscribed_Users='http://localhost:8000/send-email-subscribed-breed'
+             const emailPayload = {
+               email: user.email,
+               subject: `Breed ${newBreed.name} Available ... Please Visit Website !!!`,
+               // text: `Hello ${user.displayName}, the breed ${newBreed.name} you searched for is now available!`,
+             }
+             await axios.post(emailApiUrl_Subscribed_Users, emailPayload);
+           }
       });
 
       onClose(); // Close the modal after successful add

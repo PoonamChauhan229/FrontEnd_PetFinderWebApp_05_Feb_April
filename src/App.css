@@ -59,11 +59,11 @@
 .navbar-light .navbar-nav .nav-link {
     font-family: 'Roboto', sans-serif;
     position: relative;
-    margin-left: 30px;
-    padding: 15px 0;
-    font-size: 16px;
+    margin-left: 15px;
+    padding: 9px 0;
+    font-size: 13px;
     font-weight: 700;
-    text-transform: uppercase;
+    text-transform:uppercase;
     color: var(--dark);
     outline: none;
     transition: .5s;
@@ -485,4 +485,8 @@ a {
 .btn-outline-primary:hover {
     color: black;
     background-color: #7AB730;
+}
+.btn-outline-success:hover {
+    color: black !important;
+    background-color: #7AB730 !important;
 }
