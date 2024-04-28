@@ -6,7 +6,7 @@ import AllBreeds from './AllBreeds';
 
 const Browse = () => {
   const loggedInUserData=useSelector(store=>store.user)
-  console.log(loggedInUserData)
+  console.log("LoggedIn User",loggedInUserData)
   const [userHasSelectedBreed, setUserHasSelectedBreed] = useState(true);
 
   useEffect(() => {

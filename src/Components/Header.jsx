@@ -7,8 +7,11 @@ import { auth } from '../utilis/firebase';
 import { addUser, removeUser } from '../utilis/userSlice';
 import { Link, useLocation } from "react-router-dom"
 import Hero from './Hero'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
-const Header = () => {
+const Header = () => { 
   const location = useLocation();
   const excludedPaths = ['/login', '/register','/browse','/allbreed']; // Paths where NavBar should be excluded
 
@@ -21,25 +24,25 @@ const Header = () => {
   console.log(user)
     const handleSignOut = () => {
         signOut(auth)
-          .then(() => {})
+          .then(() => {
+            toast.error("Logged Out Successfully !", {
+              position: "top-right"
+            });
+          })
           .catch((error) => {
             navigate("/error");
           });
       };
     
       useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async(user) => {
           if (user) {
             const { uid, email, displayName, photoURL } = user;
-            dispatch(
-              addUser({
-                uid: uid,
-                email: email,
-                displayName: displayName,
-                photoURL: photoURL,
-                selectedBreed:null,
-              })
-            );
+            const response=await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`);
+            console.log(response.data)
+            dispatch(addUser(response.data))
+
+           
             navigate("/browse");
           } else {
             dispatch(removeUser());
@@ -66,12 +69,14 @@ const Header = () => {
                 <Link to="/" className="nav-item nav-link active">Home</Link>
                 <Link to="/about" className="nav-item nav-link">About</Link>                
                 <Link to="/services" className="nav-item nav-link">Services</Link>
+                <ToastContainer />
                 {
                   user ?                  
                   <>
                   <div className='d-flex'>
-                  <div onClick={handleSignOut} className="nav-item nav-link">{user.displayName.split(" ")[0]}</div>
-                  <div className='nav-item nav-link'><h5 className="bi bi-power text-danger"></h5></div>
+                  <div className="nav-item nav-link" onClick={()=>navigate('/allbreeds')}>AllBreeds</div>
+                  <div className="nav-item nav-link">{user?.displayName?.split(" ")[0]}</div>
+                  <div onClick={handleSignOut} className='nav-item nav-link'><h5 className="bi bi-power text-danger"></h5></div>
                   </div>
                   </>
                 

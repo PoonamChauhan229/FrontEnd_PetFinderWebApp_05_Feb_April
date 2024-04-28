@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { addUser } from '../utilis/userSlice';
 import axios from 'axios'; // Import axios for HTTP requests
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -33,36 +35,53 @@ const Register = () => {
                 displayName: `${firstName.current.value} ${lastName.current.value}`,
             });
 
-            // Dispatch user data to Redux store
-            dispatch(
-                addUser({
-                    uid: user.uid,
-                    email: user.email,
-                    displayName: user.displayName,
-                })
-            );
-
-            // Send user data to external API (mockapi.io)
+           // Send user data to external API (mockapi.io)
             const userData = {
                 uid: user.uid,
                 email: user.email,
                 displayName: user.displayName,
+                selectedBreed:"",
+                subscriptionModal:true,
+                Searched_Breed_Outof_stock: []
             };
+            console.log(userData)
 
-            await axios.post('https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata', userData);
+            const response=await axios.post('https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata', userData);
+            console.log(response.data)
+            dispatch(addUser(response.data))
 
-            // Navigate to browse page after successful registration
+            // Navigate to login page after successful registration
             navigate("/browse");
+            toast.info("Registered Successfully !", {
+                position: "top-right"
+              });
+            
         } catch (error) {
             console.error('Error registering user:', error.message);
             // Handle error states or display error message
+            if(error.code=="auth/invalid-email"){
+                toast.error("Email Address Invalid", {
+                    position: "top-right"
+                  });
+            }
+            if(error.code=="auth/weak-password"){
+                toast.error("Password should be at least 6 characters", {
+                    position: "top-right"
+                  });
+            }
+            
+            if(error.code=="auth/missing-password"){
+                toast.error("Password Missing!!!", {
+                    position: "top-right"
+                  });
+            }
         }
     };
 
     return (
         <div className="container bg-testimonial" style={{ marginTop: "140px" }}>
             <div className="row justify-content-center">
-                <div className="col-xl-5 col-lg-5 col-md-5 px-5">
+                <div className="col-xl-5 col-lg-5 col-md-8 px-5">
                     <div className="card o-hidden border-0 shadow-lg my-5">
                         <div className="card-body p-0">
                             <div className="row">
@@ -119,12 +138,18 @@ const Register = () => {
                                                 <button
                                                     className="btn btn-primary border-primary"
                                                     type="button"
+                                                    style={{
+                                                        fontSize: "0.8rem",
+                                                        padding: "0.7rem 1rem",
+                                                        backgroundColor: "#7AB730",
+                                                      }}
                                                     onClick={handleButtonClick}
                                                 >
                                                     Register
                                                 </button>
                                             </div>
                                         </form>
+                                        <ToastContainer/>
                                         <hr style={{ color: "#7AB730" }} />
                                         <div className="text-center text-primary">
                                             <button

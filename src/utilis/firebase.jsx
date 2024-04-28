@@ -18,14 +18,8 @@ const firebaseConfig = {
   messagingSenderId: "541799299276",
   appId: "1:541799299276:web:164ef70f1e2a2b71e16a69",
   measurementId: "G-G2BE58D7RS",
-    databaseURL: "https://petfinder-solvex-9040c-default-rtdb.firebaseio.com/",
   
 };
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const database = getDatabase(app);
 
 export const auth = getAuth(app);
-export { db ,database};
-
-

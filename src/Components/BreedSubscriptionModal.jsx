@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 const BreedSubscriptionModal = ({ onClose }) => {
   const [breeds, setBreeds] = useState([]);
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state?.user);
+  console.log(user)
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,18 +27,18 @@ const BreedSubscriptionModal = ({ onClose }) => {
 
   const handleBreedSelection = async (selectedBreed) => {
     try {
-      const apiUrl1 = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${user.uid}`;
+      const apiUrl1 = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${user?.uid}`;
       const response1 = await axios.get(apiUrl1);
       const id = response1.data[0].id;
 
-      // Update user's selected breed in Redux store
-      const updatedUser = { ...user, selectedBreed };
-      dispatch(addUser(updatedUser));
-
-      // Make PUT request to update user's data in mock API using uid
+      const updatedUserData = { ...user, 
+        subscriptionModal: false,
+        selectedBreed
+      };
       const apiUrl = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata/${id}`;
-      const response = await axios.put(apiUrl, updatedUser);
-
+      const response = await axios.put(apiUrl, updatedUserData);
+      dispatch(addUser(response.data));
+    
       console.log('User data updated in mock API:', response.data);
       onClose(); // Close the modal after breed selection
     } catch (error) {

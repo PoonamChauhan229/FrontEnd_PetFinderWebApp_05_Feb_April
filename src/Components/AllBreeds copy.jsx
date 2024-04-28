@@ -2,31 +2,56 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BreedCard from './BreedCard';
 import AddBreedModal from './AddBreedModal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import BreedSubscriptionModal from './BreedSubscriptionModal';
-import { addUser } from '../utilis/userSlice';
 
 const AllBreeds = () => {
-  // store
   const userFinal = useSelector((state) => state.user);
   console.log("Allbreeds",userFinal)
-  const uid=userFinal[0]?.uid// search not found post data through uid
- 
 // 
-  const [breeds, setBreeds] = useState([]);// MOCK API DOG CRUD
-  const [searchTerm, setSearchTerm] = useState('');// search
-  const [filteredBreeds, setFilteredBreeds] = useState([]); // search found then filter
-  const [searchClicked, setSearchClicked] = useState(false); // search not found
-   const [showAddModal, setShowAddModal] = useState(false);// Add Pet Modal
-   const [showSubscriptionModal, setShowSubscriptionModal] = useState(userFinal.subscriptionModal);
-  
-  // useEffect
-  useEffect(()=>{
-    // MockApi Dogs Data Fetch + Users data
-    fetchBreeds()     
-  },[])
+  const [breeds, setBreeds] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredBreeds, setFilteredBreeds] = useState([]);
+  const [searchClicked, setSearchClicked] = useState(false);
+  // const [userData,setUserData]=useState()
+ 
 
-  // MOCK API -> DOG CRUD start
+  // const uid=userFinal?.uid
+  
+  // const [showAddModal, setShowAddModal] = useState(false);
+  // const [showSubscriptionModal, setshowSubscriptionModal] = useState(false);
+
+
+  // // useEffect
+  // useEffect(()=>{
+  //   // MockApi Dogs Data Fetch + Users data
+  //   fetchBreeds() 
+  //   fetchUserData()    
+  // },[])
+
+  // useEffect(()=>{  
+  //   if(!userFinal?.selectedBreed){
+  //     setshowSubscriptionModal(true) 
+  //   }     
+  // },[userFinal?.selectedBreed])
+
+  // useEffect(()=>{  
+  //   if(userFinal?.selectedBreed){
+  //     setshowSubscriptionModal(false) 
+  //   }     
+  // },[userFinal?.selectedBreed])
+
+  // // const fetchUserDataUId = async (element) => {
+  // //   try {
+  // //     const response = await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${element}`);
+  // //     console.log(response.data[0].uid)
+  // //     setUserDataUid(response.data[0].uid)
+  // //     console.log("UID called")
+  // //   } catch (error) {
+  // //     console.error('Error fetching user data:', error);
+  // //   }
+  // // };
+
   const fetchBreeds = async () => {
     try {
       const response = await axios.get('https://6624dd2604457d4aaf9d281d.mockapi.io/dogs');
@@ -37,36 +62,18 @@ const AllBreeds = () => {
     }
   };
 
-  const updateBreed = async (updatedBreed) => {
-    try {
-      const response = await axios.put(`https://6624dd2604457d4aaf9d281d.mockapi.io/dogs/${updatedBreed.id}`, updatedBreed);
-      console.log('Updated Breed:', response.data);
-      fetchBreeds();
-    } catch (error) {
-      console.error('Error updating breed:', error);
-    }
-  };
+  // const fetchUserData = async () => {
+  //   try {
+  //     const response = await axios.get('https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata');
+  //     setUserData(response.data)
+  //     console.log("UsersData",response.data)
+   
+  //   } catch (error) {
+  //     console.error('Error fetching user data:', error);
+  //     return [];
+  //   }
+  // };
 
-  const deleteBreed = async (breedId) => {
-    try {
-      await axios.delete(`https://6624dd2604457d4aaf9d281d.mockapi.io/dogs/${breedId}`);
-      console.log('Deleted Breed:', breedId);
-      fetchBreeds();
-    } catch (error) {
-      console.error('Error deleting breed:', error);
-    }
-  }; 
-  
-  const addNewBreed = (newBreed) => {
-    // Update breeds list with the new breed
-    setBreeds((prevBreeds) => [...prevBreeds, newBreed]);
-    // Close the modal after adding a new breed
-    setShowAddModal(false);
-  };
-
-  // Crud Finish
-
-  // Search Implement start
   const handleSearch = async () => {
     if (searchTerm.trim() === '') {
       setFilteredBreeds([]);
@@ -123,13 +130,7 @@ const AllBreeds = () => {
       setSearchClicked(false);
     }
   };
-  // Search Implement End
   
-  // Subscription Modal
-  useEffect(() => {
-    setShowSubscriptionModal(userFinal.subscriptionModal); // Update modal visibility based on subscriptionModal
-  }, [userFinal.subscriptionModal]);
-
   const handleInputChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
@@ -141,7 +142,34 @@ const AllBreeds = () => {
     }
   };
 
-   return (
+  const updateBreed = async (updatedBreed) => {
+    try {
+      const response = await axios.put(`https://6624dd2604457d4aaf9d281d.mockapi.io/dogs/${updatedBreed.id}`, updatedBreed);
+      console.log('Updated Breed:', response.data);
+      fetchBreeds();
+    } catch (error) {
+      console.error('Error updating breed:', error);
+    }
+  };
+
+  const deleteBreed = async (breedId) => {
+    try {
+      await axios.delete(`https://6624dd2604457d4aaf9d281d.mockapi.io/dogs/${breedId}`);
+      console.log('Deleted Breed:', breedId);
+      fetchBreeds();
+    } catch (error) {
+      console.error('Error deleting breed:', error);
+    }
+  }; 
+  
+  const addNewBreed = (newBreed) => {
+    // Update breeds list with the new breed
+    setBreeds((prevBreeds) => [...prevBreeds, newBreed]);
+    // Close the modal after adding a new breed
+    setShowAddModal(false);
+  };
+
+  return (
     <div className="container-fluid pt-5">
       <div className="container">
         <div className='d-flex' >
@@ -199,13 +227,11 @@ const AllBreeds = () => {
       )}
 
 {/* <BreedSubscriptionModal/> */}
-    {showSubscriptionModal && (
+{/* {showSubscriptionModal && (
         <BreedSubscriptionModal
-          onClose={() => {
-            setShowSubscriptionModal(false); // Close modal locally
-          }}
+          onClose={() => setshowSubscriptionModal(false)}
         />
-      )}
+      )} */}
     </div>
 
   );

@@ -2,7 +2,8 @@ import React, { useRef } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utilis/firebase";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const email = useRef(null);
@@ -20,19 +21,22 @@ const Login = () => {
         const user = userCredential.user;
         console.log(user);
         navigate('/browse')
+        toast.success("Logged In Successfully !", {
+          position: "top-right"
+        });
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        //   setErrorMessage(errorCode + "-" + errorMessage);
-      });
+      .catch(() => {
+        toast.warning("Some Error Occurred !!! Check Credentials!!!", {
+          position: "top-right"
+        });
+            });
   };
 
   return (
     <>
       <div className="container bg-offer" style={{marginTop:"140px"}}>
         <div className="row justify-content-center">
-          <div className="col-xl-5 col-lg-5 col-md-5 px-5">
+          <div className="col-xl-5 col-lg-5 col-md-8 px-5">
             <div className="card o-hidden border-0 shadow-lg my-5 py-3">
               <div className="card-body p-0">
                 <div className="row">
@@ -78,6 +82,7 @@ const Login = () => {
                           >
                             Login
                           </button>
+                          <ToastContainer/>
                         </div>
                       </form>
                       <hr style={{ color: "#7AB730" }} />
