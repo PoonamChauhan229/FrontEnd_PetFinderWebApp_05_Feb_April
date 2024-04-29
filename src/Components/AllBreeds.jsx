@@ -10,7 +10,7 @@ const AllBreeds = () => {
   // store
   const userFinal = useSelector((state) => state.user);
   console.log("Allbreeds",userFinal)
-  const uid=userFinal[0]?.uid// search not found post data through uid
+  const uid=userFinal?.uid// search not found post data through uid
  
 // 
   const [breeds, setBreeds] = useState([]);// MOCK API DOG CRUD
@@ -18,8 +18,8 @@ const AllBreeds = () => {
   const [filteredBreeds, setFilteredBreeds] = useState([]); // search found then filter
   const [searchClicked, setSearchClicked] = useState(false); // search not found
    const [showAddModal, setShowAddModal] = useState(false);// Add Pet Modal
-   const [showSubscriptionModal, setShowSubscriptionModal] = useState(userFinal.subscriptionModal);
-  
+   const [showSubscriptionModal, setShowSubscriptionModal] = useState(userFinal?.subscriptionModal);
+  console.log(showSubscriptionModal)
   // useEffect
   useEffect(()=>{
     // MockApi Dogs Data Fetch + Users data
@@ -123,12 +123,6 @@ const AllBreeds = () => {
       setSearchClicked(false);
     }
   };
-  // Search Implement End
-  
-  // Subscription Modal
-  useEffect(() => {
-    setShowSubscriptionModal(userFinal.subscriptionModal); // Update modal visibility based on subscriptionModal
-  }, [userFinal.subscriptionModal]);
 
   const handleInputChange = (e) => {
     const term = e.target.value;
@@ -140,7 +134,11 @@ const AllBreeds = () => {
       fetchBreeds(); // Fetch all breeds when search input is cleared
     }
   };
+  // Search Implement End
+  
+  
 
+    // Subscription Modal
    return (
     <div className="container-fluid pt-5">
       <div className="container">

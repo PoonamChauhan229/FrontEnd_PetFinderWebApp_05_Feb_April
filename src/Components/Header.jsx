@@ -1,6 +1,6 @@
 import React from 'react'
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from '../utilis/firebase';
@@ -12,6 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 const Header = () => { 
+  const [isLoading, setIsLoading] = useState(true);
+  const user = useSelector((store) => store.user);
+  console.log(user)
+  
   const location = useLocation();
   const excludedPaths = ['/login', '/register','/browse','/allbreed']; // Paths where NavBar should be excluded
 
@@ -20,8 +24,7 @@ const Header = () => {
 
     const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
-  console.log(user)
+  
     const handleSignOut = () => {
         signOut(auth)
           .then(() => {
@@ -36,12 +39,20 @@ const Header = () => {
     
       useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async(user) => {
-          if (user) {
+          if (user !==null) {
             const { uid, email, displayName, photoURL } = user;
-            const response=await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`);
-            console.log(response.data)
-            dispatch(addUser(response.data))
+            //const response=await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`);
+            //console.log(response.data)
+            // dispatch(addUser(response.data))
 
+            dispatch(
+              addUser({
+                uid: uid,
+                email: email,
+                displayName: displayName,
+                photoURL: photoURL,
+              })
+            );
            
             navigate("/browse");
           } else {
@@ -54,10 +65,13 @@ const Header = () => {
         return () => unsubscribe();
       }, []);
 
+     
+      
   return (
     <>
     
     <nav className="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 fixed-top">
+          <>
          <div className="navbar-brand ms-lg-5 p-0">
             <h1 className="m-0 text-uppercase text-dark fs-4"><i className="bi bi-shop fs-2 text-primary me-2"></i><b>PET SHOP</b></h1>
         </div>
@@ -88,6 +102,8 @@ const Header = () => {
                 }
             </div>
         </div>
+        </>
+        
     </nav> 
     {shouldRenderNavBar && <Hero/>}
  

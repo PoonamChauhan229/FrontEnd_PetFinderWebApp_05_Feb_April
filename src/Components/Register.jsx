@@ -49,7 +49,7 @@ const Register = () => {
             const response=await axios.post('https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata', userData);
             console.log(response.data)
             dispatch(addUser(response.data))
-
+            // dispatch(addUser(userData))
             // Navigate to login page after successful registration
             navigate("/browse");
             toast.info("Registered Successfully !", {

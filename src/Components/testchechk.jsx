@@ -1,34 +1,71 @@
-Renu Chauhan
-Assist Solutions
-R.No.1, Mantu Seth Chawl,
-Bhandup West ,
-Mumbai-78
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../utilis/firebase';
+import { addUser, removeUser } from '../utilis/userSlice';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-To,
-Officials,
+const Header = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const user = useSelector((state) => state.user); // Ensure correct selector path
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-Subject: Request for No Objection Certificate (NOC) for Business Operations
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const { uid } = user;
+        try {
+          const response = await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`);
+          if (response.status === 200 && response.data.length > 0) {
+            dispatch(addUser(response.data[0]));
+          } else {
+            dispatch(removeUser());
+          }
+        } catch (error) {
+          console.error("API request error:", error);
+          dispatch(removeUser());
+        }
+      } else {
+        dispatch(removeUser());
+      }
+      setIsLoading(false); // Set loading state to false after data retrieval
+    });
 
-Dear Sir/Mam,
+    return () => unsubscribe();
+  }, []);
 
-I hope this letter finds you well. I am writing to formally request a No Objection Certificate (NOC) from you in relation to establishing and conducting business operations at the following address:
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Handle sign out success
+      })
+      .catch((error) => {
+        // Handle sign out error
+      });
+  };
 
-Address: R.No.1, Mantu Seth Chawl,
-Bhandup West ,
-Mumbai-78
+  if (isLoading) {
+    return <div>Loading...</div>; // Render a loading indicator while user data is being fetched
+  }
 
-As part of our business setup process, it is imperative that we obtain your consent and a formal acknowledgment of no objection regarding the use of the premises for commercial purposes. The NOC will serve as confirmation that you have no objections to our business operations at this location.
+  return (
+    <nav className="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0 fixed-top">
+      {/* Your navigation bar content */}
+      {user ? (
+        <div>
+          <p>Welcome, {user.displayName}</p>
+          <button onClick={handleSignOut}>Sign Out</button>
+        </div>
+      ) : (
+        <div>
+          <p>Please sign in</p>
+          {/* Render sign-in button or other UI elements */}
+        </div>
+      )}
+    </nav>
+  );
+};
 
-We assure you that our business activities will comply with all relevant laws, regulations, and guidelines governing commercial operations in this area.
-
-We kindly request you to issue the NOC at your earliest convenience to facilitate the smooth continuation of our business setup process.
-
-Please feel free to contact using, if you require any additional information or documentation from our side.
-
-Thank you very much for your cooperation and prompt attention to this matter. We look forward to your positive response.
-
-Yours sincerely,
-
-Renu Chauhan
-proprietor
-Assist Solutions
+export default Header;
