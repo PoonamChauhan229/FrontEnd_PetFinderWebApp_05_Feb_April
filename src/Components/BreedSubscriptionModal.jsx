@@ -48,7 +48,7 @@ const BreedSubscriptionModal = ({ onClose,showSubscriptionModal,setShowSubscript
 
   const handleSkip = () => {
     console.log('Skipped for now');
-    navigate('/allbreed');
+    navigate('/allbreeds');
     setShowSubscriptionModal(false)
     onClose(); // Close the modal after skipping
   };

@@ -1,8 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const BreedModal = ({ breed, onClose, updateBreed }) => {
+const EditBreedModal = ({ breed, onClose, updateBreed }) => {
   const [editedBreed, setEditedBreed] = useState({
     name: breed.name,
     origin: breed.origin,
@@ -25,6 +26,9 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
       const response = await axios.put(`https://6624dd2604457d4aaf9d281d.mockapi.io/dogs/${breed.id}`, editedBreed);
       console.log('Updated Breed:', response.data);
       updateBreed(response.data); // Update breed data in parent component
+      toast.success("Breed Details Updated Successfully !", {
+        position: "top-right"
+      });
       onClose(); // Close the modal after successful update
     } catch (error) {
       console.error('Error updating breed:', error);
@@ -36,12 +40,15 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
     <div className="modal" tabIndex="-1" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Edit Breed: {breed.name}</h5>
-            <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
+          <div className="modal-header p-2">
+            <h6 className="modal-title">Edit Breed: {breed.name}</h6>
+            <div className='d-flex p-0'>
+            <button type="button" className="btn text-primary" onClick={handleSaveChanges}>Save</button>
+            <button type="button" className="btn-close m-1" onClick={onClose} aria-label="Close"></button>
+            </div>
           </div>
-          <div className="modal-body">
-            <div className="mb-3">
+          <div className="modal-body py-2">
+            <div className="mb-1">
               <label htmlFor="name" className="form-label">Name:</label>
               <input
                 type="text"
@@ -52,7 +59,7 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="origin" className="form-label">Origin:</label>
               <input
                 type="text"
@@ -63,7 +70,7 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="weight" className="form-label">Weight (imperial):</label>
               <input
                 type="text"
@@ -74,7 +81,7 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="bred_for" className="form-label">Bred For:</label>
               <input
                 type="text"
@@ -85,7 +92,7 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="temperament" className="form-label">Temperament:</label>
               <input
                 type="text"
@@ -96,7 +103,7 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="image" className="form-label">Image URL:</label>
               <input
                 type="text"
@@ -108,14 +115,6 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
               />
             </div>
           </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={onClose}>
-              Close
-            </button>
-            <button type="button" className="btn btn-primary" onClick={handleSaveChanges}>
-              Save Changes
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -123,4 +122,4 @@ const BreedModal = ({ breed, onClose, updateBreed }) => {
   );
 };
 
-export default BreedModal;
+export default EditBreedModal;

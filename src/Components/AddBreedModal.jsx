@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const AddBreedModal = ({ onClose, addNewBreed }) => {
   const initialBreedState = {
     name: '',
@@ -96,6 +99,10 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
            }
       });
 
+      toast.success("New Breed Added Successfully !", {
+        position: "top-right"
+      });
+
       onClose(); // Close the modal after successful add
 
     } catch (error) {
@@ -107,12 +114,16 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
     <div className="modal" tabIndex="-1" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header">
+          <div className="modal-header py-2">
             <h5 className="modal-title">Add New Breed</h5>
-            <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
+            
+            <div className='d-flex p-0'>
+            <button type="button" className="btn text-primary" onClick={handleSave}>Save</button>
+              <button type="button" className="btn-close m-1" onClick={onClose} aria-label="Close"></button>
+            </div>
           </div>
-          <div className="modal-body">
-            <div className="mb-3">
+          <div className="modal-body py-2">
+            <div className="mb-1">
               <label htmlFor="name" className="form-label">Name:</label>
               <input
                 type="text"
@@ -123,7 +134,7 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="origin" className="form-label">Origin:</label>
               <input
                 type="text"
@@ -134,7 +145,7 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="weight" className="form-label">Weight (imperial):</label>
               <input
                 type="text"
@@ -145,7 +156,7 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="bred_for" className="form-label">Bred For:</label>
               <input
                 type="text"
@@ -156,7 +167,7 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="temperament" className="form-label">Temperament:</label>
               <input
                 type="text"
@@ -167,7 +178,7 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-1">
               <label htmlFor="image" className="form-label">Image URL:</label>
               <input
                 type="text"
@@ -178,14 +189,6 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
                 onChange={handleChange}
               />
             </div>
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={onClose}>
-              Close
-            </button>
-            <button type="button" className="btn btn-primary" onClick={handleSave}>
-              Add Breed
-            </button>
           </div>
         </div>
       </div>

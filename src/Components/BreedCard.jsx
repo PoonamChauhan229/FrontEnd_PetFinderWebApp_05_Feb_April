@@ -1,6 +1,8 @@
 import { useState } from "react";
-import BreedModal from "./BreedModal"; // Import your modal component
+import EditBreedModal from "./EditBreedModal"; // Import your modal component
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BreedCard = ({  image, origin, weight, name, bred_for, temperament, breed, updateBreed ,deleteBreed }) => {
   const [showModal, setShowModal] = useState(false);
@@ -11,6 +13,9 @@ const BreedCard = ({  image, origin, weight, name, bred_for, temperament, breed,
   };
 
   const handleDeleteClick = () => {
+    toast.error("Breed Deleted Successfully !", {
+      position: "top-right"
+    });
     deleteBreed(breed.id);
   };
 
@@ -47,7 +52,7 @@ const BreedCard = ({  image, origin, weight, name, bred_for, temperament, breed,
 
       {/* Render the modal conditionally */}
       {showModal && (
-        <BreedModal
+        <EditBreedModal
           onClose={() => setShowModal(false)}
           breed={breed}
           updateBreed={updateBreed} // Pass updateBreed function to BreedModal

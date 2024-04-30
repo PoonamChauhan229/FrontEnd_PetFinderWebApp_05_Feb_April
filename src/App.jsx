@@ -25,7 +25,7 @@ function App() {
         <Route exact path="/register" element={<Register/>}/>
         <Route exact path="/browse" element={<Browse/>}/>        
        <Route exact path="/login" element={<Login/>}/>
-       <Route exact path="/allbreed" element={<AllBreeds/>}/>
+       <Route exact path="/allbreeds" element={<AllBreeds/>}/>
     </Routes>
     
     <Footer/>

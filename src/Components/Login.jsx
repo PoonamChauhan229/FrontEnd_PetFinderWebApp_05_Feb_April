@@ -34,7 +34,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="container bg-offer" style={{marginTop:"140px"}}>
+      <div className="container bg-offer" style={{marginTop:"40px"}}>
         <div className="row justify-content-center">
           <div className="col-xl-5 col-lg-5 col-md-8 px-5">
             <div className="card o-hidden border-0 shadow-lg my-5 py-3">

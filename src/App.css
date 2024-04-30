@@ -60,7 +60,7 @@
     font-family: 'Roboto', sans-serif;
     position: relative;
     margin-left: 15px;
-    padding: 9px 0;
+    padding: 12px 0;
     font-size: 13px;
     font-weight: 700;
     text-transform:uppercase;
@@ -68,6 +68,7 @@
     outline: none;
     transition: .5s;
 }
+
 
 .sticky-top.navbar-light .navbar-nav .nav-link {
     padding: 20px 0;

@@ -9,15 +9,13 @@ import { Link, useLocation } from "react-router-dom"
 import Hero from './Hero'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 
 const Header = () => { 
-  const [isLoading, setIsLoading] = useState(true);
   const user = useSelector((store) => store.user);
   console.log(user)
   
   const location = useLocation();
-  const excludedPaths = ['/login', '/register','/browse','/allbreed']; // Paths where NavBar should be excluded
+  const excludedPaths = ['/login', '/register','/browse','/allbreeds']; // Paths where NavBar should be excluded
 
   // Check if current path is in the excludedPaths array
   const shouldRenderNavBar = !excludedPaths.includes(location.pathname);
@@ -41,10 +39,6 @@ const Header = () => {
         const unsubscribe = onAuthStateChanged(auth, async(user) => {
           if (user !==null) {
             const { uid, email, displayName, photoURL } = user;
-            //const response=await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`);
-            //console.log(response.data)
-            // dispatch(addUser(response.data))
-
             dispatch(
               addUser({
                 uid: uid,
@@ -87,11 +81,12 @@ const Header = () => {
                 {
                   user ?                  
                   <>
-                  <div className='d-flex'>
-                  <div className="nav-item nav-link" onClick={()=>navigate('/allbreeds')}>AllBreeds</div>
-                  <div className="nav-item nav-link">{user?.displayName?.split(" ")[0]}</div>
-                  <div onClick={handleSignOut} className='nav-item nav-link'><h5 className="bi bi-power text-danger"></h5></div>
-                  </div>
+                  
+                  <span className="nav-item nav-link" onClick={()=>navigate('/allbreeds')}>AllBreeds</span>
+                
+                  <span className="nav-item nav-link">{user?.displayName?.split(" ")[0]}</span>
+                  <span onClick={handleSignOut} className=' nav-item nav-link'><i className="fa-solid fa-power-off text-danger fs-5"></i></span>
+                  
                   </>
                 
                                        :            

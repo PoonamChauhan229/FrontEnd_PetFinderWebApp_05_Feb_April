@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import BreedCard from './BreedCard';
 import AddBreedModal from './AddBreedModal';
-import { useDispatch, useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 import BreedSubscriptionModal from './BreedSubscriptionModal';
-import { addUser } from '../utilis/userSlice';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AllBreeds = () => {
   // store
@@ -76,6 +78,11 @@ const AllBreeds = () => {
     if (searchTerm.trim() === '') {
       setFilteredBreeds([]);
       setSearchClicked(false);
+      if(searchTerm==""){
+        toast.warning("Please enter a breed name to search.", {
+          position: "top-right",
+        });
+      }
   
       // Make API call to update Searched_Breed_Outof_stock with the current searchTerm
       const apiUrl = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`;
@@ -99,6 +106,10 @@ const AllBreeds = () => {
       setSearchClicked(true);
   
       if (response.data.length === 0) {
+        toast.info(`Sorry, breed "${searchTerm}" not found. We'll notify you when it's available!`, {
+          position: "top-right",
+        });
+        
         // Fetch current Searched_Breed_Outof_stock from mock API
         const apiUrl = `https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`;
         try {
@@ -189,7 +200,7 @@ const AllBreeds = () => {
             </div>
        
         {/* Breed List */}
-        <div className="row g-5">
+        {/* <div className="row g-5">
           {(searchClicked ? filteredBreeds : breeds).map((breed) => (
             <BreedCard
               {...breed}
@@ -199,6 +210,22 @@ const AllBreeds = () => {
               deleteBreed={deleteBreed}
             />
           ))}
+        </div> */}
+
+<div className="row g-5">
+          {searchClicked && filteredBreeds.length === 0 ? (
+            <p>No breeds found for {searchTerm}.</p>
+          ) : (
+            (searchClicked ? filteredBreeds : breeds).map((breed) => (
+              <BreedCard
+                {...breed}
+                key={breed.id}
+                breed={breed}
+                updateBreed={updateBreed}
+                deleteBreed={deleteBreed}
+              />
+            ))
+          )}
         </div>
       </div>
 
@@ -219,6 +246,7 @@ const AllBreeds = () => {
 
         />
       )}
+      <ToastContainer/>
     </div>
 
   );
