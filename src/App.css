@@ -117,6 +117,10 @@
     background-size: cover;
 }
 
+.notFound-header {
+    background: url(./assets/notfound2.jpg) top right no-repeat;
+    background-size: cover;
+}
 .btn-play {
     position: relative;
     display: block;
