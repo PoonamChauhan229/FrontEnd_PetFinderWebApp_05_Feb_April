@@ -10,7 +10,7 @@ const AllBreeds = () => {
   // store
   const userFinal = useSelector((state) => state.user);
   console.log("Allbreeds",userFinal)
-  const uid=userFinal?.uid// search not found post data through uid
+ 
  
 // 
   const [breeds, setBreeds] = useState([]);// MOCK API DOG CRUD
@@ -18,13 +18,18 @@ const AllBreeds = () => {
   const [filteredBreeds, setFilteredBreeds] = useState([]); // search found then filter
   const [searchClicked, setSearchClicked] = useState(false); // search not found
    const [showAddModal, setShowAddModal] = useState(false);// Add Pet Modal
-   const [showSubscriptionModal, setShowSubscriptionModal] = useState(userFinal?.subscriptionModal);
-  console.log(showSubscriptionModal)
+   const [showSubscriptionModal, setShowSubscriptionModal] = useState("");
+   const uid=userFinal?.uid// search not found post data through uid
+  console.log(uid)
+   console.log(showSubscriptionModal)
   // useEffect
   useEffect(()=>{
     // MockApi Dogs Data Fetch + Users data
     fetchBreeds()     
-  },[])
+    if(uid){
+      fetchSubscriptionStatus()
+    }
+  },[uid])
 
   // MOCK API -> DOG CRUD start
   const fetchBreeds = async () => {
@@ -136,9 +141,18 @@ const AllBreeds = () => {
   };
   // Search Implement End
   
-  
+  // Subscription Modal Start
+  const fetchSubscriptionStatus = async () => {
+    try {
+      const response = await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${uid}`);
+      console.log("USER DATA CALEED",response.data[0].subscriptionModal)
+      setShowSubscriptionModal(response.data[0].subscriptionModal);
+    } catch (error) {
+      console.error('Error fetching breeds:', error);
+    }
+  }; 
 
-    // Subscription Modal
+  //Sybscription Modal End
    return (
     <div className="container-fluid pt-5">
       <div className="container">
@@ -149,7 +163,7 @@ const AllBreeds = () => {
        
             <div className='d-flex'>
               <button className="btn text-primary btn-sm"  style={{ width:'23%',paddingBottom:"10%",marginTop:"4%" }} onClick={() => setShowAddModal(true)}>Add Pet<i className="bi bi-plus-circle-fill text-primary ps-1"></i></button>
-              <button className="btn text-primary btn-sm me-2" style={{ width:'24%',paddingBottom:"10%",marginTop:"4%"}} onClick={() => setshowSubscriptionModal(true)}>Subscribe <i className="bi bi-arrow-up-right-circle-fill text-primary"></i></button>
+              <button className="btn text-primary btn-sm me-2" style={{ width:'24%',paddingBottom:"10%",marginTop:"4%"}} onClick={() => setShowSubscriptionModal(true)}>Subscribe <i className="bi bi-arrow-up-right-circle-fill text-primary"></i></button>
               
               <div className="d-flex">
                 <input
@@ -195,13 +209,14 @@ const AllBreeds = () => {
           addNewBreed={addNewBreed}
         />
       )}
-
+{console.log(showSubscriptionModal)}
 {/* <BreedSubscriptionModal/> */}
     {showSubscriptionModal && (
-        <BreedSubscriptionModal
+        <BreedSubscriptionModal showSubscriptionModal={showSubscriptionModal} setShowSubscriptionModal={setShowSubscriptionModal}        
           onClose={() => {
             setShowSubscriptionModal(false); // Close modal locally
           }}
+
         />
       )}
     </div>

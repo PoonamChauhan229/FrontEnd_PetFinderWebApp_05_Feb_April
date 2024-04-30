@@ -4,7 +4,7 @@ import { addUser } from '../utilis/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-const BreedSubscriptionModal = ({ onClose }) => {
+const BreedSubscriptionModal = ({ onClose,showSubscriptionModal,setShowSubscriptionModal }) => {
   const [breeds, setBreeds] = useState([]);
   const user = useSelector((state) => state?.user);
   console.log(user)
@@ -49,6 +49,7 @@ const BreedSubscriptionModal = ({ onClose }) => {
   const handleSkip = () => {
     console.log('Skipped for now');
     navigate('/allbreed');
+    setShowSubscriptionModal(false)
     onClose(); // Close the modal after skipping
   };
 
