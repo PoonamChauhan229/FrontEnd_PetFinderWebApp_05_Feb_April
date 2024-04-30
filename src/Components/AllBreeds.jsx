@@ -7,6 +7,7 @@ import BreedSubscriptionModal from './BreedSubscriptionModal';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BreedNotFound from './BreedNotFound';
 
 const AllBreeds = () => {
   // store
@@ -214,7 +215,7 @@ const AllBreeds = () => {
 
 <div className="row g-5">
           {searchClicked && filteredBreeds.length === 0 ? (
-            <p>No breeds found for {searchTerm}.</p>
+            <BreedNotFound searchTerm={searchTerm}/>
           ) : (
             (searchClicked ? filteredBreeds : breeds).map((breed) => (
               <BreedCard
