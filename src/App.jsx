@@ -1,18 +1,15 @@
 import { Provider } from 'react-redux'
 import './App.css'
-// import Login from './Components/Login'
 import Register from './Components/Register'
 import { Routes, Route } from "react-router-dom"
 import appStore from './utilis/appStore'
 import Browse from './Components/Browse'
-// import Header from './Components/Header'
 import Home from './Components/Home'
 import About from './Components/About'
 import Services from './Components/Services'
 import Footer from './Components/Footer'
 import Login from './Components/Login'
 import Header from './Components/Header'
-// import { useState } from 'react'
 import AllBreeds from './Components/AllBreeds'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
