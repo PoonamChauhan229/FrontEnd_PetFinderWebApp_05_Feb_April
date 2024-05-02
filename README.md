@@ -15,27 +15,14 @@ firebase init
 Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys -Selct it
 
 What do you want to use as your public directory? (public) > dist
-Set up automatic builds and deploys with GitHub? >n
+Set up automatic builds and deploys with GitHub? >No
 File dist/index.html already exists. Overwrite? Yes
 npm run build
 firebase deploy
 
+Deployed FrontEnd URL:
+https://petfinder-solvex-9040c.web.app/
 
-username:
-poonam.chauhan229@gmail.com
+Deployed Backend URL:
+https://backend-petfinderwebapp-05-feb-april.onrender.com/
 
-password:
-D46820E87B778F4AE4F1316308BB090F4E7A
-
-Server:
-smtp.elasticemail.com
-
-Port
-2525
-
-https://app.elasticemail.com/marketing/settings/new/manage-smtp
-
-https://smtpjs.com/
-
-
-048ecd3b-47ca-491c-b16c-648e78cf942c
