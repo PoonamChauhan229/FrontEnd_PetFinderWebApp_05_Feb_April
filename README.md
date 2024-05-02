@@ -1,3 +1,4 @@
+npm install -g firebase-tools
 npm install firebase
 
 firebase.jsx
