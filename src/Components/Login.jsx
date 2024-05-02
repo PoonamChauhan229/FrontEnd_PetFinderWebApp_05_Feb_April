@@ -21,10 +21,12 @@ const Login = () => {
         const user = userCredential.user;
         console.log(user);
         navigate('/browse')
+        console.log("Login Component")
         toast.success("Logged In Successfully !", {
           position: "top-right"
         });
-      })
+        
+        })
       .catch(() => {
         toast.warning("Some Error Occurred !!! Check Credentials!!!", {
           position: "top-right"
@@ -82,7 +84,7 @@ const Login = () => {
                           >
                             Login
                           </button>
-                          <ToastContainer/>
+                       
                         </div>
                       </form>
                       <hr style={{ color: "#7AB730" }} />
@@ -104,6 +106,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+    
     </>
   );
 };

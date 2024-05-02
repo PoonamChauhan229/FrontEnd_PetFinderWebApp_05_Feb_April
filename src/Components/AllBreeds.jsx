@@ -4,8 +4,7 @@ import BreedCard from './BreedCard';
 import AddBreedModal from './AddBreedModal';
 import {useSelector } from 'react-redux';
 import BreedSubscriptionModal from './BreedSubscriptionModal';
-
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BreedNotFound from './BreedNotFound';
 
@@ -200,19 +199,6 @@ const AllBreeds = () => {
 
             </div>
        
-        {/* Breed List */}
-        {/* <div className="row g-5">
-          {(searchClicked ? filteredBreeds : breeds).map((breed) => (
-            <BreedCard
-              {...breed}
-              key={breed.id}
-              breed={breed}
-              updateBreed={updateBreed}
-              deleteBreed={deleteBreed}
-            />
-          ))}
-        </div> */}
-
 <div className="row g-5">
           {searchClicked && filteredBreeds.length === 0 ? (
             <BreedNotFound searchTerm={searchTerm}/>
@@ -247,7 +233,7 @@ const AllBreeds = () => {
 
         />
       )}
-      <ToastContainer/>
+     
     </div>
 
   );

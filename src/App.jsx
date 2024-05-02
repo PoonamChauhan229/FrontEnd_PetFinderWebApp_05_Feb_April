@@ -14,6 +14,8 @@ import Login from './Components/Login'
 import Header from './Components/Header'
 // import { useState } from 'react'
 import AllBreeds from './Components/AllBreeds'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
    <Provider store={appStore}>
@@ -26,8 +28,9 @@ function App() {
         <Route exact path="/browse" element={<Browse/>}/>        
        <Route exact path="/login" element={<Login/>}/>
        <Route exact path="/allbreeds" element={<AllBreeds/>}/>
+      
     </Routes>
-    
+    <ToastContainer/>
     <Footer/>
    </Provider>
   )

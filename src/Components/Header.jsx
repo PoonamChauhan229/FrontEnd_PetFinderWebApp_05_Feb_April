@@ -25,10 +25,10 @@ const Header = () => {
   
     const handleSignOut = () => {
         signOut(auth)
-          .then(() => {
-            toast.error("Logged Out Successfully !", {
-              position: "top-right"
-            });
+          .then(() => { 
+            toast.error('Logged out successfully!', {
+              position: 'top-right',
+            })            
           })
           .catch((error) => {
             navigate("/error");
@@ -49,6 +49,7 @@ const Header = () => {
             );
            
             navigate("/browse");
+            console.log("Browse Component")
           } else {
             dispatch(removeUser());
             navigate("/");
@@ -77,8 +78,7 @@ const Header = () => {
                 <Link to="/" className="nav-item nav-link active">Home</Link>
                 <Link to="/about" className="nav-item nav-link">About</Link>                
                 <Link to="/services" className="nav-item nav-link">Services</Link>
-                <ToastContainer />
-                {
+                         {
                   user ?                  
                   <>
                   

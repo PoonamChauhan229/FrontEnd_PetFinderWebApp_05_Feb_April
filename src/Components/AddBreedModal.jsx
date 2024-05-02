@@ -41,61 +41,108 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
             subject: `Breed ${newBreed.name} Available ... Please Visit Website !!!`,
             // text: `Hello ${user.displayName}, the breed ${newBreed.name} you searched for is now available!`,
             html: `
-    <html>
-      <head>
-        <style>
-          /* Define your styles here */
-          body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-          }
-          .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-          }
-          h1 {
-            color: #007bff;
-          }
-          p {
-            line-height: 1.6;
-          }
-          .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>Breed ${newBreed.name} Now Available!</h1>
-          <p>Hello ${user.displayName},</p>
-          <p>The breed ${newBreed.name} you searched for is now available. Visit our website to learn more and make a purchase!</p>
-          <a href="https://petfinder-solvex-9040c.web.app/" class="button">Visit Website</a>
-        </div>
-      </body>
-    </html>
-  `,
+            <html>
+              <head>
+                <style>
+                  /* Define your styles here */
+                  body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                  }
+                  .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                  }
+                  h1 {
+                    color: #007bff;
+                  }
+                  p {
+                    line-height: 1.6;
+                  }
+                  .button {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    margin-top: 20px;
+                    background-color: #007bff;
+                    color: #fff;
+                    text-decoration: none;
+                    border-radius: 5px;
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="container">
+                  <h1>Breed ${newBreed.name} Now Available!</h1>
+                  <p>Hello ${user.displayName},</p>
+                  <p>The breed ${newBreed.name} you searched for is now available. Visit our website to learn more...</p>
+                  <a href="https://petfinder-solvex-9040c.web.app/" class="button">Visit Website</a>
+                </div>
+              </body>
+            </html>
+          `
 };
           await axios.post(emailApiUrl, emailPayload);
         }
         if (user.selectedBreed && user.selectedBreed.includes(newBreed.name)) {
           const emailApiUrl_Subscribed_Users='http://localhost:8000/send-email-subscribed-breed'
-             const emailPayload = {
+          console.log("Email sent for subscribed breed")
+             const emailPayload1 = {
                email: user.email,
-               subject: `Breed ${newBreed.name} Available ... Please Visit Website !!!`,
-               // text: `Hello ${user.displayName}, the breed ${newBreed.name} you searched for is now available!`,
-             }
-             await axios.post(emailApiUrl_Subscribed_Users, emailPayload);
+               subject: `Subscribed Breed ${newBreed.name} Available ... Please Visit Website !!!`,
+               html: `
+               <html>
+              <head>
+                 <head>
+                   <style>
+                     /* Define your styles here */
+                     body {
+                       font-family: Arial, sans-serif;
+                       background-color: #f4f4f4;
+                       color: #333;
+                     }
+                     .container {
+                       max-width: 600px;
+                       margin: 0 auto;
+                       padding: 20px;
+                       background-color: #fff;
+                       border-radius: 8px;
+                       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                     }
+                     h1 {
+                       color: #007bff;
+                     }
+                     p {
+                       line-height: 1.6;
+                     }
+                     .button {
+                       display: inline-block;
+                       padding: 10px 20px;
+                       margin-top: 20px;
+                       background-color: #007bff;
+                       color: #fff;
+                       text-decoration: none;
+                       border-radius: 5px;
+                     }
+                   </style>
+                 </head>
+                 <body>
+                   <div class="container">
+                     <h1>Breed ${newBreed.name} Now Available!</h1>
+                     <p>Hello ${user.displayName},</p>
+                     <p>Subscribed breed ${newBreed.name}is now available. Visit our website to learn more...</p>
+                     <a href="https://petfinder-solvex-9040c.web.app/" class="button">Visit Website</a>
+                   </div>
+                 </body>
+               </html>
+               `
+              };
+             
+             await axios.post(emailApiUrl_Subscribed_Users, emailPayload1);
            }
       });
 

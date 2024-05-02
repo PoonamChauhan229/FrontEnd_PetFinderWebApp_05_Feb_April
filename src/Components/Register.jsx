@@ -149,7 +149,6 @@ const Register = () => {
                                                 </button>
                                             </div>
                                         </form>
-                                        <ToastContainer/>
                                         <hr style={{ color: "#7AB730" }} />
                                         <div className="text-center text-primary">
                                             <button

@@ -26,7 +26,7 @@ const BreedCard = ({  image, origin, weight, name, bred_for, temperament, breed,
         <div className="col-12 col-sm-5" style={{ height: "150px", width: "220px" }}>
           <img
             className="img-fluid rounded-start"
-            src={image?.url}
+            src={image?.url || image}
             style={{objectFit: "cover"}}
             alt={name}
           />

@@ -12,8 +12,7 @@ const Browse = () => {
   useEffect(() => {
     // Fetch user data to check if user has selected a breed
     if (loggedInUserData && loggedInUserData.uid) {
-
-    const fetchUserData = async () => {
+      const fetchUserData = async () => {
       try {
         const response = await axios.get(`https://6624dd2604457d4aaf9d281d.mockapi.io/usersdata?uid=${loggedInUserData?.uid}`);
         const userData = response.data;
