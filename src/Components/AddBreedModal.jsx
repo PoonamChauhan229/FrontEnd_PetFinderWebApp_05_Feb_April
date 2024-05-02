@@ -4,6 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AddBreedModal = ({ onClose, addNewBreed }) => {
+  const url="https://backend-petfinderwebapp-05-feb-april.onrender.com"
+  // const url="http://localhost:8000"
   const initialBreedState = {
     name: '',
     origin: '',
@@ -35,7 +37,7 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
  
        usersResponse.data.forEach(async (user) => {
         if (user.Searched_Breed_Outof_stock && user.Searched_Breed_Outof_stock.includes(newBreed.name)) {
-          const emailApiUrl='http://localhost:8000/send-email-stock-available'
+          const emailApiUrl=`${url}/send-email-stock-available`
           const emailPayload = {
             email: user.email,
             subject: `Breed ${newBreed.name} Available ... Please Visit Website !!!`,
@@ -89,7 +91,7 @@ const AddBreedModal = ({ onClose, addNewBreed }) => {
           await axios.post(emailApiUrl, emailPayload);
         }
         if (user.selectedBreed && user.selectedBreed.includes(newBreed.name)) {
-          const emailApiUrl_Subscribed_Users='http://localhost:8000/send-email-subscribed-breed'
+          const emailApiUrl_Subscribed_Users=`${url}/send-email-subscribed-breed`
           console.log("Email sent for subscribed breed")
              const emailPayload1 = {
                email: user.email,
