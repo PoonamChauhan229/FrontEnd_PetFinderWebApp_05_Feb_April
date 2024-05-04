@@ -1,7 +1,10 @@
+npm i
+package.json > front end +backend
+
 npm install -g firebase-tools
 npm install firebase
 
-firebase.jsx
+ create a file firebase.jsx in utilis.sx
 
 https://console.firebase.google.com/u/1/project/petfinder-solvex-9040c/settings/general/web:ZWY2MWY3MDUtMWQ5My00NTQ1LWExZDUtMGM1ZTQ4ZjE1MmM1
 
@@ -10,6 +13,7 @@ ProjectOverview
 Authentication:
 https://firebase.google.com/docs/auth/web/manage-users
 
+>>terminal > hosting
 
 firebase login
 firebase init
